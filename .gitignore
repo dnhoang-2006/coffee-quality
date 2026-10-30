@@ -1,0 +1,14 @@
+# dữ liệu không commit (giữ lại .gitkeep)
+data/raw/*
+data/processed/*
+!data/**/.gitkeep
+
+# Jupyter / Python
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# hệ điều hành
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
