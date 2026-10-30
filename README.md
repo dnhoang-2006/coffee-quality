@@ -4,8 +4,8 @@
 | MSSV | Họ tên | Vai trò |
 |---|---|---|
 | 24120053 | Ngọc Hoàng | Nhóm trưởng |
-| 23120361 | Đức Thịnh | |
-| 23120311 | Tùng Hiếu | |
+| 23120361 | Đức Thịnh | Thành viên|
+| 23120311 | Tùng Hiếu | Thành viên|
 
 ## Task breakdown
 ## Dataset
