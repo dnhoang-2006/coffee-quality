@@ -22,6 +22,14 @@
 - **Dữ liệu bổ sung:** sản lượng cà phê nhân xanh theo quốc gia–năm từ FAOSTAT (xem `data/external/README.md`).
 - **Notebook công khai liên quan:** *(đang cập nhật, xem `docs/related_work.md`)*
 
+**Kiểm tra dữ liệu (MD5):** sau khi tải dữ liệu, chạy mục 3.1.2 trong `notebooks/01_collection_exploration.ipynb` và so sánh với bảng dưới. Cả 3 mã trùng khớp nghĩa là dữ liệu giống hệt bản nhóm đã dùng.
+
+| File | Kích thước (KB) | MD5 |
+|:---|---:|:---|
+| `Coffee_Qlty.csv` | 166.6 | `183955d1a03c9d7447cf658e9cff0f45` |
+| `Coffee_Qlty_By_Continent.csv` | 1.3 | `b5befb87b0d98c8b75d3263afa86fc91` |
+| `Coffee_Qlty_By_Country.csv` | 5.5 | `625485a31a724517d132cfc4741e3f4f` |
+
 ## Questions
 *(Cập nhật sau)*
 
