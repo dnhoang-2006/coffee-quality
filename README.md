@@ -21,7 +21,7 @@
 - **License:** CC BY-SA 4.0 (phải ghi nguồn; sản phẩm phái sinh chia sẻ theo cùng giấy phép).
 - **Mô tả:** 3 file CSV. File chính `Coffee_Qlty.csv` gồm 1.339 dòng × 22 cột (`REC_ID` chạy từ 0 đến 1338); mỗi dòng là một lô cà phê được CQI chấm điểm (xuất xứ, giống, phương pháp sơ chế, 9 thuộc tính cảm quan, độ ẩm, số lỗi hạt). Năm thu hoạch 2009–2018. Hai file `By_Country` / `By_Continent` là bảng tổng hợp tính từ file chính.
 - **Dữ liệu bổ sung:** sản lượng cà phê nhân xanh theo quốc gia–năm từ FAOSTAT (xem `data/external/README.md`).
-- **Notebook công khai liên quan:** *(đang cập nhật, xem `docs/related_work.md`)*
+- **Notebook công khai liên quan:** xem bảng *Related public notebooks* bên dưới.
 
 **Provenance:** dữ liệu được scrape bằng script Python từ cơ sở dữ liệu công khai của Coffee Quality Institute (https://database.coffeeinstitute.org) và qua nhiều nguồn trung gian trước khi tới bản nhóm dùng:
 
@@ -33,6 +33,25 @@
 | 31/03/2024 | Kaggle `adampq/coffee-quality-with-locations-of-origin` | Tổng hợp, chỉnh sửa từ các bộ trên: **bản nhóm dùng** | CC BY-SA 4.0 |
 
 Dữ liệu gốc của CQI không có điều khoản tái sử dụng công khai, nên nhóm chỉ dùng cho mục đích học tập và không phát hành lại dữ liệu gốc.
+
+### Related public notebooks
+Trang Kaggle của dataset có 7 notebook công khai. Phân tích chi tiết từng notebook nằm trong `docs/related_work.md`.
+
+| # | Notebook (tác giả) | Nội dung chính |
+|:---:|:---|:---|
+| 1 | [Final](https://www.kaggle.com/code/joshuatyrell/final/notebook) (Joshua Tyrell) | So sánh `Flavor` theo sơ chế, xuất xứ, lỗi hạt; Linear Regression dự đoán `Flavor`, chia train/test ngẫu nhiên 70/30 |
+| 2 | [Coffee quality report](https://www.kaggle.com/code/beshoyashraf/coffee-quality-report) (Beshoy Qulta) | Mean `Sweetness`, `Aroma` và khoảng cách thu hoạch–hết hạn theo quốc gia, tách riêng Arabica / Robusta |
+| 3 | [Coffee Quality - Explorations](https://www.kaggle.com/code/docxian/coffee-quality-explorations) (Chris X.) | EDA tổng quát: giá trị thiếu, phân phối, tương quan Pearson và Phi_K |
+| 4 | [Clustering of coffee quality](https://www.kaggle.com/code/arkabarua173/clustering-of-coffee-quality-k-means-pca) (Arka Barua) | PCA (3 thành phần) + K-means (6 cụm) trên các biến số |
+| 5 | [project](https://www.kaggle.com/code/vivek193/project) (Vivek Yadav) | Dự đoán `Balance`, `Sweetness` từ các điểm cảm quan khác; phân loại loài, màu, xuất xứ |
+| 6 | [Py \| EDA - Data dispersion](https://www.kaggle.com/code/mlippo/py-eda-data-dispersion) (mlippo) | Phân phối và mean các thuộc tính cảm quan theo giống và phương pháp sơ chế |
+| 7 | [Processing Methods by Country and Continent](https://www.kaggle.com/code/adampq/processing-methods-by-country-and-continent) (RealDealAdamP) | Scatter plot cho biết phương pháp sơ chế nào xuất hiện ở quốc gia / châu lục nào |
+
+**Câu hỏi của nhóm khác ở đâu:**
+- **Biến chất lượng:** các notebook trên phân tích từng điểm cảm quan riêng lẻ (`Flavor`, `Aroma`, `Sweetness`…); nhóm dùng biến tổng hợp `total_9`.
+- **Dữ liệu ngoài (Q5):** không notebook nào nối thêm nguồn ngoài; nhóm nối sản lượng FAOSTAT theo quốc gia–năm.
+- **So sánh có kiểm soát và độ bền (Q1, Q3, Q4, Q6):** các notebook dừng ở mean / median mô tả theo nhóm; nhóm so sánh trong cùng châu lục, kiểm soát cơ cấu quốc gia theo năm, báo CI 95% bằng bootstrap và kiểm tra kết luận khi đổi cách làm sạch.
+- **ML (Q2):** *Final* chia ngẫu nhiên và dự đoán một thuộc tính; *project* dùng các điểm cảm quan khác làm đầu vào và fit tiền xử lý trên toàn bộ dữ liệu. Nhóm chỉ dùng thông tin có **trước khi cupping**, chia train/test **theo thời gian**, và đặt mọi bước tiền xử lý trong `Pipeline`.
 
 **Kiểm tra dữ liệu (MD5):** sau khi tải dữ liệu, chạy mục 3.1.2 trong `notebooks/01_collection_exploration.ipynb` và so sánh với bảng dưới. Cả 3 mã trùng khớp nghĩa là dữ liệu giống hệt bản nhóm đã dùng.
 
@@ -79,7 +98,7 @@ python -c "import numpy, pandas, scipy, sklearn; print(numpy.__version__, pandas
 ```
 
 ### 4. Tải dữ liệu
-Dữ liệu không được commit lên repo (file lớn, license CC BY-SA 4.0).
+Theo yêu cầu của đề, file dữ liệu không đưa vào repo; mỗi người tự tải theo các bước dưới đây.
 1. Tải zip tại https://www.kaggle.com/datasets/adampq/coffee-quality-with-locations-of-origin (cần đăng nhập Kaggle).
 2. Giải nén vào `data/raw/`:
    ```bash

@@ -1,6 +1,13 @@
-# Câu hỏi nghiên cứu
+# Câu hỏi nghiên cứu — biên bản họp chốt
+
+**Ngày họp:** 08/11/2026
 
 **Phạm vi chung cho cả 6 câu:** chỉ phân tích Arabica; bỏ bản ghi giữ chỗ `REC_ID = 1310`; coi `Moisture = 0` là giá trị thiếu; `total_9` = tổng 9 thuộc tính cảm quan; ngày chấm ≈ `Expiration − 1 năm`.
+
+**Các quyết định chung khác:**
+- **Cặp trùng `REC_ID` 721 / 742** (giống hệt nhau ở cả 21 cột ngoài ID): giữ cả hai ở EDA và các câu Q1, Q3–Q6, có kiểm tra độ nhạy khi bỏ một bản ghi. Ở Q2 (ML), không để hai bản ghi này rơi vào hai tập train và test khác nhau.
+- **Lô `REC_ID = 1306`** (`Clean.Cup = 0`, 8 thuộc tính còn lại hợp lệ, `total_9` = 61,58, 20 lỗi loại 2): là giá trị thật của một lô kém chất lượng, không phải lỗi nhập liệu nên **giữ lại** ở mọi câu.
+- **Ngưỡng số lô tối thiểu cho mỗi quốc gia ở Q5:** **≥ 10 lô**. Trên mẫu Arabica, ngưỡng này giữ 19/34 quốc gia (1.266 lô), loại 15 quốc gia (43 lô).
 
 ---
 
@@ -46,9 +53,9 @@
 **Câu hỏi:** Ở **mức quốc gia**, các nước sản xuất cà phê quy mô nhỏ có điểm chất lượng trung vị cao hơn hay thấp hơn các nước quy mô lớn, và mức liên hệ giữa tỷ trọng sản lượng thế giới với điểm chất lượng là bao nhiêu (CI 95%)?
 
 - **Motivation:** nhà rang xay tìm nguồn cà phê đặc sản muốn biết có nên tìm tới các nước sản xuất nhỏ thay vì chỉ mua từ các nước lớn không.
-- **Đơn vị phân tích:** mỗi quốc gia là một quan sát: median `total_9` của các lô thuộc nước đó, số lô, và tỷ trọng sản lượng trung bình giai đoạn 2010–2017. Chỉ giữ quốc gia có đủ số lô tối thiểu (ngưỡng thống nhất, ví dụ ≥ 5 lô) và báo rõ số quốc gia bị loại.
+- **Đơn vị phân tích:** mỗi quốc gia là một quan sát: median `total_9` của các lô thuộc nước đó, số lô, và tỷ trọng sản lượng trung bình giai đoạn 2010–2017. Chỉ giữ quốc gia có **≥ 10 lô** (ngưỡng đã chốt ở phần quyết định chung: còn 19 quốc gia, loại 15 quốc gia / 43 lô) và báo rõ các quốc gia bị loại.
 - **Bằng chứng:** D1 nối CQI với FAOSTAT theo (quốc gia, năm) rồi tổng hợp theo quốc gia — báo số dòng trước/sau, các quốc gia không khớp tên và lý do chọn `how='left'` · D3 `production_share` và nhóm quy mô theo ngưỡng có biện luận · D5 bootstrap trên các quốc gia: CI 95% cho chênh lệch median giữa nhóm nhỏ và lớn, và cho hệ số tương quan Spearman.
-- **Lưu ý:** chỉ còn khoảng 20–30 quốc gia sau khi lọc, nên CI sẽ rộng; trình bày kèm số lô của từng nước.
+- **Lưu ý:** chỉ còn 19 quốc gia sau khi lọc (có thể ít hơn nếu một số nước không khớp tên với FAOSTAT), nên CI sẽ rộng; trình bày kèm số lô của từng nước.
 
 ## Q6 — Hồ sơ hương vị theo châu lục · Tùng Hiếu · D2, D3, D6
 
