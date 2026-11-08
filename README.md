@@ -3,24 +3,36 @@
 ## Team
 | MSSV | Họ tên | Vai trò |
 |---|---|---|
-| 24120053 | Ngọc Hoàng | Nhóm trưởng |
-| 23120361 | Đức Thịnh | Thành viên|
-| 23120311 | Tùng Hiếu | Thành viên|
+| 24120053 | Đặng Ngọc Hoàng | Nhóm trưởng |
+| 23120361 | Đào Đức Thịnh | Thành viên|
+| 24120311 | Nguyễn Mai Tùng Hiếu | Thành viên|
 
 ## Task breakdown
 | Thành viên | Câu hỏi phụ trách | Công việc chính |
 |---|---|---|
 | Ngọc Hoàng (24120053) | Q1, Q2 (ML) | Dựng repo & môi trường, Data collection (3.1), README, mô hình ML, slide mở đầu |
 | Đức Thịnh (23120361) | Q3, Q4 | Exploration: cột số, outlier, missing (3.2); Summary & reflection (3.5) |
-| Tùng Hiếu (23120311) | Q5, Q6 | Exploration: cột phân loại, quan hệ (3.2); dữ liệu ngoài (FAOSTAT); slides.pdf, LLM_USAGE, kiểm tra tái lập |
+| Tùng Hiếu (24120311) | Q5, Q6 | Exploration: cột phân loại, quan hệ (3.2); dữ liệu ngoài (FAOSTAT); slides.pdf, LLM_USAGE, kiểm tra tái lập |
 
 ## Dataset
 - **Tên:** Coffee Quality with Locations of Origin
-- **Nguồn:** https://www.kaggle.com/datasets/adampq/coffee-quality-with-locations-of-origin (tác giả RealDealAdamP), dữ liệu gốc scrape từ cơ sở dữ liệu của Coffee Quality Institute (CQI).
+- **Nguồn:** https://www.kaggle.com/datasets/adampq/coffee-quality-with-locations-of-origin (tác giả RealDealAdamP, `adampq`).
+- **Phiên bản:** Version 1 (*Initial release*), công bố 31/03/2024, chưa cập nhật lần nào. Nhóm tải về ngày 01/11/2026.
 - **License:** CC BY-SA 4.0 (phải ghi nguồn; sản phẩm phái sinh chia sẻ theo cùng giấy phép).
-- **Mô tả:** 3 file CSV. File chính `Coffee_Qlty.csv` gồm 1.338 dòng × 22 cột; mỗi dòng là một lô cà phê được CQI chấm điểm (xuất xứ, giống, phương pháp sơ chế, 9 thuộc tính cảm quan, độ ẩm, số lỗi hạt). Năm thu hoạch 2009–2018.
+- **Mô tả:** 3 file CSV. File chính `Coffee_Qlty.csv` gồm 1.339 dòng × 22 cột (`REC_ID` chạy từ 0 đến 1338); mỗi dòng là một lô cà phê được CQI chấm điểm (xuất xứ, giống, phương pháp sơ chế, 9 thuộc tính cảm quan, độ ẩm, số lỗi hạt). Năm thu hoạch 2009–2018. Hai file `By_Country` / `By_Continent` là bảng tổng hợp tính từ file chính.
 - **Dữ liệu bổ sung:** sản lượng cà phê nhân xanh theo quốc gia–năm từ FAOSTAT (xem `data/external/README.md`).
 - **Notebook công khai liên quan:** *(đang cập nhật, xem `docs/related_work.md`)*
+
+**Provenance:** dữ liệu được scrape bằng script Python từ cơ sở dữ liệu công khai của Coffee Quality Institute (https://database.coffeeinstitute.org) và qua nhiều nguồn trung gian trước khi tới bản nhóm dùng:
+
+| Thời gian | Nguồn | Nội dung | Giấy phép |
+|:---|:---|:---|:---|
+| 01/2018 | GitHub `jldbc/coffee-quality-database` (J. LeDoux) | Script scrape website CQI, khoảng 1.340 lô (Arabica + Robusta) | MIT (cho mã nguồn) |
+| 12/2019 | Kaggle `volpatto/coffee-quality-database-from-cqi` | Đưa bộ dữ liệu trên lên Kaggle | ODbL |
+| 05/2023 | Kaggle `fatihb/coffee-quality-data-cqi` | Sửa script cho website mới, scrape lại, chỉ lấy Arabica | "Other" (không nêu cụ thể) |
+| 31/03/2024 | Kaggle `adampq/coffee-quality-with-locations-of-origin` | Tổng hợp, chỉnh sửa từ các bộ trên: **bản nhóm dùng** | CC BY-SA 4.0 |
+
+Dữ liệu gốc của CQI không có điều khoản tái sử dụng công khai, nên nhóm chỉ dùng cho mục đích học tập và không phát hành lại dữ liệu gốc.
 
 **Kiểm tra dữ liệu (MD5):** sau khi tải dữ liệu, chạy mục 3.1.2 trong `notebooks/01_collection_exploration.ipynb` và so sánh với bảng dưới. Cả 3 mã trùng khớp nghĩa là dữ liệu giống hệt bản nhóm đã dùng.
 
@@ -31,7 +43,15 @@
 | `Coffee_Qlty_By_Country.csv` | 5.5 | `625485a31a724517d132cfc4741e3f4f` |
 
 ## Questions
-*(Cập nhật sau)*
+
+| # | Phụ trách | Câu hỏi | Tiêu chí |
+|:---|:---|:---|:---|
+| Q1 | Ngọc Hoàng | Trong cùng châu lục, sơ chế khô vs ướt chênh bao nhiêu điểm (CI 95%)? | D3, D4, D5 |
+| Q2 | Ngọc Hoàng | **ML (hồi quy):** dự đoán `total_9` từ thông tin có trước khi cupping, sai trung bình bao nhiêu điểm? | ML |
+| Q3 | Đức Thịnh | Độ ẩm 10–12% và không lỗi loại 1 cao hơn bao nhiêu điểm; có bền khi đổi cách làm sạch? | D3, D5, D6 |
+| Q4 | Đức Thịnh | Xu hướng điểm 2012–2017 (CI cho độ dốc) có còn sau khi kiểm soát cơ cấu quốc gia? | D2, D4, D5 |
+| Q5 | Tùng Hiếu | Ở mức quốc gia, nước sản xuất nhỏ vs lớn có điểm khác nhau không (nối FAOSTAT)? | D1, D3, D5 |
+| Q6 | Tùng Hiếu | Hồ sơ hương vị 4 châu lục; xếp hạng có bền khi bỏ 3 cột trần điểm? | D2, D3, D6 |
 
 ## Key findings
 *(Cập nhật sau)*
@@ -67,6 +87,7 @@ Dữ liệu không được commit lên repo (file lớn, license CC BY-SA 4.0).
    ls data/raw/
    ```
 3. `data/raw/` phải có đúng 3 file: `Coffee_Qlty.csv`, `Coffee_Qlty_By_Continent.csv`, `Coffee_Qlty_By_Country.csv`.
+4. Tải dữ liệu FAOSTAT tại https://www.fao.org/faostat/en/#data/QCL, chọn bộ lọc theo `data/external/README.md` (Item: Coffee, green · Element: Production · Years: 2008–2018), rồi lưu file CSV thành `data/external/FAOSTAT_coffee.csv`.
 
 ### 5. Chạy notebook
 ```bash
