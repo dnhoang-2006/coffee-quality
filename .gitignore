@@ -1,6 +1,7 @@
 # dữ liệu không commit (giữ lại .gitkeep)
 data/raw/*
 data/processed/*
+data/external/FAOSTAT_coffee.csv
 !data/**/.gitkeep
 
 # Jupyter / Python
