@@ -100,7 +100,7 @@ Phần cà phê trong *project* dùng các đặc điểm đã ghi của từng 
 
 ## 6. Py | EDA - Data dispersion
 ### a. Thông tin notebook
-- **Tác giả đăng:** `mlippo`.
+- **Tác giả đăng:** mlippo.
 - **Link:** [Py | EDA - Data dispersion trên Kaggle](https://www.kaggle.com/code/mlippo/py-eda-data-dispersion).
 
 ### b. Câu hỏi nghiên cứu
