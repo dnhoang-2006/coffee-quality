@@ -12,7 +12,7 @@
 |---|---|---|
 | Ngọc Hoàng (24120053) | Q1, Q2 (ML) | Dựng repo & môi trường, Data collection (3.1), README, mô hình ML, slide mở đầu |
 | Đức Thịnh (23120361) | Q3, Q4 | Exploration: cột số, outlier, missing (3.2); Summary & reflection (3.5) |
-| Tùng Hiếu (24120311) | Q5, Q6 | Exploration: cột phân loại, quan hệ (3.2); dữ liệu ngoài (FAOSTAT); slides.pdf, LLM_USAGE, kiểm tra tái lập |
+| Tùng Hiếu (24120311) | Q5, Q6 | Exploration: cột phân loại, quan hệ (3.2); dữ liệu ngoài (FAOSTAT); slides.pdf, kiểm tra tái lập |
 
 ## Dataset
 - **Tên:** Coffee Quality with Locations of Origin
