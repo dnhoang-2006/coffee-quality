@@ -106,7 +106,7 @@ Theo yêu cầu của đề, file dữ liệu không đưa vào repo; mỗi ngư
    ls data/raw/
    ```
 3. `data/raw/` phải có đúng 3 file: `Coffee_Qlty.csv`, `Coffee_Qlty_By_Continent.csv`, `Coffee_Qlty_By_Country.csv`.
-4. Tải dữ liệu FAOSTAT tại https://www.fao.org/faostat/en/#data/QCL, chọn bộ lọc theo `data/external/README.md` (Item: Coffee, green · Element: Production · Years: 2008–2018), rồi lưu file CSV thành `data/external/FAOSTAT_coffee.csv`.
+4. Tải dữ liệu FAOSTAT tại https://www.fao.org/faostat/en/#data/QCL theo bộ lọc trong `data/external/README.md`. Cần số liệu quốc gia/vùng lãnh thổ cho 2008–2018 và tám dòng `World` cho 2010–2017. Ghép các dòng dữ liệu vào một CSV cùng cấu trúc, chỉ giữ một dòng tiêu đề và đặt tên `data/external/FAOSTAT_coffee.csv`. Bản nhóm dùng có 920 dòng dữ liệu.
 
 ### 5. Chạy notebook
 ```bash

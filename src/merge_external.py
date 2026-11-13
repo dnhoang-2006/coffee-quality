@@ -1,4 +1,6 @@
-"""Draft CQI -> FAOSTAT names; no production/quality analysis is performed here."""
+"""Load FAOSTAT production and audit its country–harvest year join with CQI."""
+
+import pandas as pd
 
 from .labels import normalize_labels
 from .config import EXTERNAL
@@ -7,7 +9,10 @@ FAOSTAT_FILE = EXTERNAL / "FAOSTAT_coffee.csv"
 
 
 # Keys follow normalize_labels(), values preserve FAOSTAT QCL data-row names.
-# These names must be checked again if the source release changes.
+# Japan is a recognized area name but has no rows in this coffee extract.
+# All 16 CQI lots labeled China were matched to source records from Yunnan.
+# Source: github.com/jldbc/coffee-quality-database/blob/master/data/arabica_data_cleaned.csv
+# Keep the separate CQI Taiwan label mapped to its own FAOSTAT series.
 COUNTRY_MAP = {
     "ethiopia": "Ethiopia", "guatemala": "Guatemala", "brazil": "Brazil",
     "peru": "Peru", "united states": "United States of America",
@@ -25,8 +30,21 @@ COUNTRY_MAP = {
     "cote d'ivoire": "Côte d'Ivoire", "india": "India",
 }
 
-# CQI's broad "China" label needs provenance confirmation before a final join.
-PROVISIONAL_COUNTRIES = {"china"}
+
+def load_fao(path=FAOSTAT_FILE):
+    """Load country–year production in tonnes from the filtered FAOSTAT CSV."""
+    fao = pd.read_csv(
+        path,
+        usecols=["Area", "Year", "Value"],
+        dtype={"Area": "string", "Year": "Int64", "Value": "Float64"},
+    ).rename(columns={"Area": "country_fao", "Year": "year", "Value": "production_t"})
+    keys = ["country_fao", "year"]
+    if fao[keys].isna().any().any():
+        raise ValueError("FAOSTAT contains a missing country or year key")
+    duplicates = fao.loc[fao.duplicated(keys, keep=False), keys].drop_duplicates()
+    if not duplicates.empty:
+        raise ValueError(f"Duplicate FAOSTAT country–year keys:\n{duplicates.to_string(index=False)}")
+    return fao[[*keys, "production_t"]]
 
 
 def audit_country_mapping(cqi, fao):
@@ -35,11 +53,10 @@ def audit_country_mapping(cqi, fao):
     This checks names only, not harvest-year compatibility or value availability.
     Japan is deliberately left without a substitute if absent in coffee data.
     """
-    import pandas as pd
-
     labels = normalize_labels(cqi)["Country.of.Origin"]
     counts = labels.value_counts(dropna=False)
-    areas = set(fao["Area"].dropna())
+    area_column = "country_fao" if "country_fao" in fao else "Area"
+    areas = set(fao[area_column].dropna())
     rows = []
     for country, count in counts.items():
         missing = pd.isna(country)
@@ -49,7 +66,6 @@ def audit_country_mapping(cqi, fao):
             "missing_cqi_country" if missing else
             "unmapped" if area is None else
             "absent_in_coffee_extract" if not available else
-            "provisional_geographic_scope" if country in PROVISIONAL_COUNTRIES else
             "name_matched"
         )
         rows.append({"cqi_country": country, "fao_area": area,
@@ -58,44 +74,47 @@ def audit_country_mapping(cqi, fao):
     return pd.DataFrame(rows)
 
 
-def audit_country_year(cqi, fao):
-    """Preflight a many-to-one candidate join, without approving scope choices.
+def merge_production(cqi, fao):
+    """Left join CQI lots to loaded FAOSTAT data and annotate each row's status.
 
-    Only harvest year is used. Missing years are not inferred from expiration.
-    The result is an audit artifact, not the dataset for research conclusions.
+    Preserve original CQI columns. Match normalized country names and integer
+    harvest years, keeping missing keys and missing production visible.
     """
-    import pandas as pd
-
-    normalized = normalize_labels(cqi)
+    country = normalize_labels(cqi[["Country.of.Origin"]])["Country.of.Origin"]
     year = pd.to_numeric(cqi["Harvest.Year"], errors="coerce")
     if (year.dropna() % 1 != 0).any():
         raise ValueError("Harvest years must be integers")
-    left = pd.DataFrame({
-        "REC_ID": cqi["REC_ID"],
-        "cqi_country": normalized["Country.of.Origin"],
-        "fao_area": normalized["Country.of.Origin"].map(COUNTRY_MAP),
-        "year": year.astype("Int64"),
-    })
-    right = fao[["Area", "Year", "Value", "Flag", "Area Code (M49)"]].rename(
-        columns={"Area": "fao_area", "Year": "year", "Value": "production_t"}
+    left = cqi.assign(
+        cqi_country=country,
+        country_fao=country.map(COUNTRY_MAP),
+        year=year.astype("Int64"),
     )
-    result = left.merge(right, on=["fao_area", "year"], how="left",
+    result = left.merge(fao, on=["country_fao", "year"], how="left",
                         validate="many_to_one", indicator=True)
     if len(result) != len(cqi):
         raise ValueError("Candidate join changed CQI row count")
     result["status"] = "candidate_matched"
-    result.loc[result["cqi_country"].isin(PROVISIONAL_COUNTRIES), "status"] = "provisional_geographic_scope"
     result.loc[result["production_t"].isna(), "status"] = "matched_key_missing_value"
     result.loc[result["_merge"].eq("left_only"), "status"] = "no_fao_country_year"
-    result.loc[result["fao_area"].isna(), "status"] = "unmapped_country"
+    result.loc[result["country_fao"].isna(), "status"] = "unmapped_country"
     result.loc[result["year"].isna(), "status"] = "missing_harvest_year"
     result.loc[result["cqi_country"].isna(), "status"] = "missing_cqi_country"
     return result
 
 
+def audit_country_year(cqi, fao):
+    """Return the Week 1 audit columns, including flags from a raw FAOSTAT CSV."""
+    right = fao[["Area", "Year", "Value", "Flag", "Area Code (M49)"]].rename(
+        columns={"Area": "country_fao", "Year": "year", "Value": "production_t"}
+    )
+    result = merge_production(cqi[["REC_ID", "Country.of.Origin", "Harvest.Year"]], right)
+    columns = ["REC_ID", "cqi_country", "country_fao", "year", "production_t",
+               "Flag", "Area Code (M49)", "_merge", "status"]
+    return result[columns].rename(columns={"country_fao": "fao_area"})
+
+
 def main():
     import json
-    import pandas as pd
     from .config import RAW
 
     cqi = pd.read_csv(RAW / "Coffee_Qlty.csv", keep_default_na=False, na_values=[""])
@@ -103,7 +122,7 @@ def main():
     countries = audit_country_mapping(cqi, fao)
     candidate = audit_country_year(cqi, fao)
     summary = {
-        "purpose": "preflight only; no final research join approved",
+        "purpose": "audit CQI coverage by FAOSTAT country and harvest year",
         "cqi_rows_before": len(cqi), "candidate_rows_after": len(candidate),
         "country_name_statuses": {str(k): int(v) for k, v in countries["status"].value_counts().items()},
         "lot_statuses": {str(k): int(v) for k, v in candidate["status"].value_counts().items()},
@@ -111,7 +130,6 @@ def main():
         "left_distinct_complete_unmatched_keys": int(candidate.loc[
             candidate["_merge"].eq("left_only") & candidate["fao_area"].notna() & candidate["year"].notna(),
             ["fao_area", "year"]].drop_duplicates().shape[0]),
-        "provisional_country_choices": {c: COUNTRY_MAP[c] for c in PROVISIONAL_COUNTRIES},
         "note": "Status categories are exclusive; missing country has priority over missing year.",
     }
     # Print diagnostics only; keep external/ limited to source CSV + README.
