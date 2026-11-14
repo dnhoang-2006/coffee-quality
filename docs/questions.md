@@ -53,9 +53,9 @@
 **Câu hỏi:** Ở **mức quốc gia**, các nước sản xuất cà phê quy mô nhỏ có điểm chất lượng trung vị cao hơn hay thấp hơn các nước quy mô lớn, và mức liên hệ giữa tỷ trọng sản lượng thế giới với điểm chất lượng là bao nhiêu (CI 95%)?
 
 - **Motivation:** nhà rang xay tìm nguồn cà phê đặc sản muốn biết có nên tìm tới các nước sản xuất nhỏ thay vì chỉ mua từ các nước lớn không.
-- **Đơn vị phân tích:** mỗi quốc gia là một quan sát: median `total_9` của các lô thuộc nước đó, số lô, và tỷ trọng sản lượng trung bình giai đoạn 2010–2017. Chỉ giữ quốc gia có **≥ 10 lô** (ngưỡng đã chốt ở phần quyết định chung: còn 19 quốc gia, loại 15 quốc gia / 43 lô) và báo rõ các quốc gia bị loại.
+- **Đơn vị phân tích:** mỗi quốc gia là một quan sát: median `total_9` của các lô thuộc nước đó, số lô, và tỷ trọng sản lượng trung bình giai đoạn 2010–2017. Chỉ giữ quốc gia có **≥ 10 lô đủ điều kiện** và báo rõ các quốc gia bị loại. Thống kê sơ bộ trước các bước lọc giữ 19 quốc gia. Mẫu thực tế sau khi giới hạn năm thu hoạch và kiểm tra dữ liệu nối giữ **18 quốc gia/vùng với 1.178 lô**.
 - **Bằng chứng:** D1 nối CQI với FAOSTAT theo (quốc gia, năm) rồi tổng hợp theo quốc gia — báo số dòng trước/sau, các quốc gia không khớp tên và lý do chọn `how='left'` · D3 `production_share` và nhóm quy mô theo ngưỡng có biện luận · D5 bootstrap trên các quốc gia: CI 95% cho chênh lệch median giữa nhóm nhỏ và lớn, và cho hệ số tương quan Spearman.
-- **Lưu ý:** chỉ còn 19 quốc gia sau khi lọc (có thể ít hơn nếu một số nước không khớp tên với FAOSTAT), nên CI sẽ rộng; trình bày kèm số lô của từng nước.
+- **Lưu ý:** Peru còn chín lô đủ điều kiện sau khi lọc nên ra khỏi mẫu so với thống kê sơ bộ. Báo CI cùng số lô của từng quốc gia/vùng và thực hiện bootstrap ở cấp quốc gia.
 
 ## Q6 — Hồ sơ hương vị theo châu lục · Tùng Hiếu · D2, D3, D6
 
