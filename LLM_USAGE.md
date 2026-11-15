@@ -1,26 +1,17 @@
-## 05/11/2026 — Relationships
+# LLM_USAGE — Hỗ trợ kỹ thuật và xử lý dữ liệu
 
-- Công cụ Codex hỗ trợ triển khai các cell Relationships theo câu trả lời của Thịnh, kiểm tra số đếm trên CSV và ghi báo cáo kiểm chứng.
-- Các kết quả được kiểm tra bằng lượt chạy tuần tự 41 cell. Thành viên cần tự chạy lại trên kernel `coffee` và tự viết nhận xét dựa trên output.
+Phần ghi nhận này tập trung vào các yêu cầu về kỹ thuật, code, thống kê và kiểm tra dữ liệu. Nội dung prompt được tóm tắt theo mục đích sử dụng.
 
-## 06/11/2026 — Nhận xét EDA
-
-- Codex hỗ trợ đọc output notebook đã lưu và viết nháp nhận xét cho Categorical columns và Relationships. Đã đối chiếu số đếm, mẫu số và hệ số với bảng, biểu đồ và dữ liệu nguồn. Thành viên rà lại và giải thích các nhận xét trước khi nộp.
-
-## 08/11/2026 — Summary EDA
-
-- Codex hỗ trợ soạn bản nháp Summary từ bảng và biểu đồ đã lưu. Nội dung tách số liệu quan sát, cách xử lý dự kiến và hướng phân tích. Thành viên rà lại mẫu số, cách diễn giải và các quyết định tiền xử lý trước khi nộp.
-
-## Tuần 2 — Q5 và Q6
-
-| Ngày | Người dùng | Công cụ | Nội dung yêu cầu | Cách dùng và chỉnh sửa |
+| Ngày | Người dùng | Công cụ | Nội dung prompt | Cách sử dụng và kiểm tra |
 | --- | --- | --- | --- | --- |
-| 09/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Đọc bản phân công, hoàn thiện ánh xạ CQI–FAOSTAT và kiểm tra phép nối. | Dùng hỗ trợ viết `load_fao()`, `merge_production()`, bảng số dòng và khóa chưa khớp. Đối chiếu CSV gốc và kiểm tra khóa many-to-one. |
-| 09/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Xác nhận phạm vi nhãn China và dùng tổng sản lượng thế giới. | Đối chiếu 16 lô với bản CQI nguồn, dùng dòng World từ CSV thành viên tải. Ghép thành một CSV FAOSTAT cục bộ và ghi nguồn, bộ lọc. |
-| 09/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Tổng hợp theo quốc gia, chia nhóm quy mô và tính hai CI 95%. | Dùng hỗ trợ triển khai bảng mỗi vùng một dòng, trung bình tỷ trọng theo năm và bootstrap ở cấp quốc gia. Tái sử dụng hàm của nhóm và kiểm tra mẫu cuối 18 vùng. |
-| 10/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Tạo Q6, đề xuất chọn mẫu, melt, pivot và tính z-score. | Thành viên chọn tất cả năm, bảng dài bốn cột và pivot median. Dùng hỗ trợ code, bảng kiểm tra và heatmap theo các lựa chọn đã chốt. |
-| 10–13/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Kiểm tra độ bền, dựng profile và giải thích cách đọc thống kê. | Dùng hỗ trợ phép bỏ ba cột và lô trùng, dựng biểu đồ, giải thích z-score, spread và CI. Các bảng và output được chạy để đối chiếu. |
-| 13/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Rà câu trả lời đã viết, thống nhất form và giải thích quy trình trước code. | Thành viên viết và chỉnh câu trả lời, Codex hỗ trợ mẫu diễn giải, biên tập số liệu, bổ sung một số đoạn và lời dẫn. Một số đoạn ứng dụng và giới hạn được thêm rồi bỏ theo yêu cầu của thành viên. |
-| 15/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Sửa theo review, khôi phục log và bổ sung phép D6 có thể đổi kết quả. | Khôi phục file và phân công trong README, so mean với median z-score, sửa import theo main mới, chọn kernel coffee và chạy lại hai notebook. Thứ hạng dẫn đầu đổi khi đổi cách tổng hợp. |
-
-Codex đã hỗ trợ viết và biên tập cả code lẫn một số nội dung diễn giải. Thành viên cần tự kiểm tra, chỉnh lại câu chữ theo cách hiểu của mình và giải thích được các bước trong buổi Q&A. File log từng bị xóa theo yêu cầu dọn repo ngày 13/11 và được khôi phục khi xử lý review ngày 15/11.
+| 05/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Triển khai Relationships theo quy tắc dữ liệu đã thống nhất, kiểm tra các bảng và biểu đồ trên CSV. | Xây dựng các cell thống kê mối quan hệ, kiểm tra số lô và chạy tuần tự các cell để đối chiếu kết quả. |
+| 09/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Hoàn thiện COUNTRY_MAP và load_fao(), giữ đúng cột yêu cầu, kiểm tra phép nối CQI–FAOSTAT. | Xây dựng hàm nạp dữ liệu và merge_production(), kiểm tra khóa duy nhất, phép nối many-to-one, số dòng trước và sau nối cùng các khóa không khớp. |
+| 09/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Xác nhận phạm vi nhãn China và kiểm tra dữ liệu tổng sản lượng thế giới vừa tải. | Đối chiếu 16 lô với bản CQI nguồn. Kiểm tra tám dòng World, ghép với 912 dòng ban đầu và dùng tổng thế giới cùng năm để tính tỷ trọng. |
+| 09/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Tổng hợp mỗi quốc gia một dòng, tính median total_9 và trung bình tỷ trọng trong 2010–2017. | Tính tỷ trọng ở cấp quốc gia–năm để mỗi năm có cùng trọng số. Lọc theo ngưỡng 10 lô và kiểm tra mẫu cuối có 18 quốc gia/vùng. |
+| 09/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Chia nhóm quy mô và tính CI 95% cho chênh lệch median cùng Spearman. | Tái sử dụng bootstrap_diff và bootstrap_ci trong src/stats.py, lấy mẫu lại ở cấp quốc gia với 5.000 lượt và seed cố định. Đối chiếu CI bằng phép tính riêng. |
+| 09–10/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Kiểm tra độ nhạy của thống kê khi bỏ một lô trong cặp 721 và 742. | Tính lại số lô và các thống kê sau khi bỏ 742, đối chiếu với mẫu chính để kiểm tra mức thay đổi. |
+| 10/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Tạo mẫu Q6, thực hiện melt chín thuộc tính và pivot_table theo châu lục. | Chốt mẫu dùng tất cả năm, bảng dài bốn cột và pivot median. Kiểm tra 1.308 lô tạo 11.772 dòng sau melt, đối chiếu median bằng groupby. |
+| 10/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Tính z-score và xếp hạng thuộc tính theo độ chênh giữa bốn châu lục. | Chuẩn hóa từng thuộc tính trên mẫu chung với ddof=1. Tính mean z-score theo châu lục và spread, đối chiếu z-score với SciPy. |
+| 10/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Kiểm tra độ bền khi bỏ ba thuộc tính sát trần và khi bỏ lô trùng 742. | So sánh spread và hạng với chín hoặc sáu thuộc tính. Tính lại tham số chuẩn hóa sau khi bỏ 742 và lập bảng thay đổi. |
+| 10/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Dựng scatter plot, biểu đồ CI, heatmap và line profile từ các bảng thống kê. | Dùng Matplotlib và Seaborn, kiểm tra dữ liệu trục, đơn vị, màu và chú giải. Lưu output sau khi chạy notebook. |
+| 15/11/2026 | Nguyễn Mai Tùng Hiếu | Codex | Đồng bộ với main mới nhất và kiểm tra lại hai notebook bằng kernel coffee. | Cập nhật import add_total_score từ src.features, kiểm tra metadata kernel và chạy lại từ đầu để phát hiện lỗi tương thích. |
