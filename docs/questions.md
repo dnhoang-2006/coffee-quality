@@ -8,6 +8,7 @@
 - **Cặp trùng `REC_ID` 721 / 742** (giống hệt nhau ở cả 21 cột ngoài ID): giữ cả hai ở EDA và các câu Q1, Q3–Q6, có kiểm tra độ nhạy khi bỏ một bản ghi. Ở Q2 (ML), không để hai bản ghi này rơi vào hai tập train và test khác nhau.
 - **Lô `REC_ID = 1306`** (`Clean.Cup = 0`, 8 thuộc tính còn lại hợp lệ, `total_9` = 61,58, 20 lỗi loại 2): là giá trị thật của một lô kém chất lượng, không phải lỗi nhập liệu nên **giữ lại** ở mọi câu.
 - **Ngưỡng số lô tối thiểu cho mỗi quốc gia ở Q5:** **≥ 10 lô**. Trên mẫu Arabica, ngưỡng này giữ 19/34 quốc gia (1.266 lô), loại 15 quốc gia (43 lô).
+- **Cập nhật mẫu Q5 ngày 15/11:** sau khi giới hạn năm thu hoạch 2010–2017 và kiểm tra dữ liệu nối, còn **18 quốc gia/vùng với 1.178 lô**. Peru còn chín lô đủ điều kiện nên bị loại bởi cùng ngưỡng 10 lô.
 
 ---
 
@@ -64,5 +65,6 @@
 - **Motivation:** barista và nhà rang xay phối trộn (blend) cần biết nên lấy nguồn từ châu lục nào để có độ chua, độ đậm hay hương vị mong muốn.
 - **Phạm vi:** 4 châu lục trên; bỏ Oceania (1 lô) và lô thiếu châu lục.
 - **Bằng chứng:** D2 `melt` 9 thuộc tính rồi `pivot_table` Châu lục × Thuộc tính · D3 z-score (có biện luận vì sao chuẩn hoá) · D6 so xếp hạng khi dùng 9 thuộc tính vs 6 thuộc tính.
+- **Cập nhật D6 theo review ngày 15/11:** so sánh thêm spread và hạng khi tổng hợp bằng mean với median z-score trên cùng mẫu. Phép bỏ ba cột là đối chiếu mô tả do chuẩn hóa riêng từng thuộc tính. Phép đổi cách tổng hợp cho phép đánh giá liệu thuộc tính đứng đầu có phụ thuộc vào lựa chọn mean hay median.
 
 ---
