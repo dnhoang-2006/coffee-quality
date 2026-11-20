@@ -1,3 +1,5 @@
+import pandas as pd
+
 from src.config import SCORE_COLS
 
 
@@ -26,4 +28,27 @@ def add_grading_date(df):
         )
     out = df.copy()
     out["grading_date"] = out["Expiration"] - pd.Timedelta(days=365)
+    return out
+
+
+def add_defect_total(df):
+    """Trả về bản sao có cột defects_total = Category.One.Defects + Category.Two.Defects + Quakers."""
+    out = df.copy()
+    out["defects_total"] = (
+        out["Category.One.Defects"] + out["Category.Two.Defects"] + out["Quakers"]
+    )
+    return out
+
+
+def bin_moisture(
+    df,
+    bins=(0, 0.10, 0.12, 1),
+    labels=("<10%", "10–12%", ">12%"),
+    right=False,
+):
+    """Trả về bản sao có cột moisture_band phân nhóm độ ẩm theo ngưỡng khuyến nghị SCA/ISO (10–12%)."""
+    out = df.copy()
+    out["moisture_band"] = pd.cut(
+        out["Moisture"], bins=bins, labels=labels, right=right
+    )
     return out
