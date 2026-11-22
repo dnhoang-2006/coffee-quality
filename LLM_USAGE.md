@@ -87,3 +87,17 @@
 - **Công cụ:** Antigravity
 - **Hỏi gì:** Hỗ trợ tách `src/cleaning.py` và `src/features.py`, triển khai biến dẫn xuất D3 (`add_defect_total`, `bin_moisture`), định lượng bất định D5 (`bootstrap_diff`, `kruskal`), kiểm tra độ bền D6 (`Moisture = 0`, `1,5×IQR` vs `3×IQR`) cho Q3 (`notebooks/02_analysis_q3.ipynb`), và phân tích xu hướng 2012–2017 kèm kiểm soát cơ cấu quốc gia D4 và bootstrap CI độ dốc D5 cho Q4 (`notebooks/02_analysis_q4.ipynb`).
 - **Đã dùng / sửa thế nào:** Dùng cấu trúc code và bảng tổng hợp do AI đề xuất, bổ sung `%matplotlib inline` theo review để hiển thị đầy đủ biểu đồ trong notebook, tách riêng p-value Kruskal–Wallis khỏi bảng so sánh từng cặp ở Q3, tự đối chiếu lại toàn bộ số liệu đầu ra bằng cách chạy `Restart & Run All` trên kernel `coffee`, và tự rà soát phần diễn giải kết quả (bao gồm lý giải nhóm `<10%` và độ nhạy với `Moisture = 0`).
+
+## 01–08/11/2026 — Notebook 01, mục 3.1 Data collection
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude
+- **Hỏi gì:** Dựng khung notebook 3.1 theo cấu trúc homework/lab; code đọc dữ liệu, MD5, bảng nhóm cột, bảng quần thể/giai đoạn/độ phủ; góp ý nội dung Subject, License, Collection method; kiểm tra tài liệu tham khảo.
+- **Đã dùng / sửa thế nào:** Dùng khung và code gợi ý, tự chạy lại và đối chiếu số liệu với dữ liệu; tự chọn và viết lại các kết luận; sửa số lô 1.338 → 1.339 sau khi kiểm tra REC_ID.
+
+## 22/11/2026 — Sửa notebook 01 theo review
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude (review đối chiếu đề, Notion, lab), Claude Code (thực hiện)
+- **Hỏi gì:** Rà notebook 01 theo đề và checklist Notion; sửa lỗi số liệu, bỏ nội dung lặp, bổ sung đường xu hướng scatter, thống nhất hình thức.
+- **Đã dùng / sửa thế nào:** Claude Code sửa lỗi sự thật, bỏ nội dung lặp, thêm đường xu hướng scatter và sửa các con số trong nhận xét cho khớp output; câu chữ nhận xét của thành viên giữ nguyên. Đổi imputer cột phân loại ở 03_ml_question.ipynb sang "unknown" cho khớp kế hoạch EDA. Ngọc Hoàng duyệt bảng thay đổi trước khi push.
