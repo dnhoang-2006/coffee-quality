@@ -100,4 +100,4 @@
 - **Người dùng:** Ngọc Hoàng
 - **Công cụ:** Claude (review đối chiếu đề, Notion, lab), Claude Code (thực hiện)
 - **Hỏi gì:** Rà notebook 01 theo đề và checklist Notion; sửa lỗi số liệu, bỏ nội dung lặp, bổ sung đường xu hướng scatter, thống nhất hình thức.
-- **Đã dùng / sửa thế nào:** Chỉ sửa lỗi sự thật và code; các phần diễn giải mới để thành viên phụ trách tự viết (ô ✍️ TODO).
+- **Đã dùng / sửa thế nào:** Claude Code sửa lỗi sự thật, bỏ nội dung lặp, thêm đường xu hướng scatter và sửa các con số trong nhận xét cho khớp output; câu chữ nhận xét của thành viên giữ nguyên. Đổi imputer cột phân loại ở 03_ml_question.ipynb sang "unknown" cho khớp kế hoạch EDA. Ngọc Hoàng duyệt bảng thay đổi trước khi push.
