@@ -69,3 +69,4 @@ Người dùng — Nguyễn Mai Tùng Hiếu.
 - **Công cụ:** Codex
 - **Hỏi gì:** Đồng bộ với main mới nhất và kiểm tra lại hai notebook bằng kernel coffee.
 - **Đã dùng / sửa thế nào:** Cập nhật import add_total_score từ `src.features`, kiểm tra metadata kernel và chạy lại từ đầu để phát hiện lỗi tương thích.
+
