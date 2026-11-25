@@ -8,11 +8,11 @@
 | 24120311 | Nguyễn Mai Tùng Hiếu | Thành viên|
 
 ## Task breakdown
-| Thành viên | Câu hỏi phụ trách | Công việc chính |
-|---|---|---|
-| Ngọc Hoàng (24120053) | Q1, Q2 (ML) | Dựng repo & môi trường, Data collection (3.1), README, mô hình ML, slide mở đầu |
-| Đức Thịnh (23120361) | Q3, Q4 | Exploration: cột số, outlier, missing (3.2); Summary & reflection (3.5) |
-| Tùng Hiếu (24120311) | Q5, Q6 | Exploration: cột phân loại, quan hệ (3.2); dữ liệu ngoài (FAOSTAT); slides.pdf, LLM_USAGE, kiểm tra tái lập |
+| Thành viên | Câu hỏi | Notebook / file phụ trách | Công việc khác |
+|---|---|---|---|
+| Đặng Ngọc Hoàng (24120053) | Q1, Q2 (ML) | `01_collection_exploration.ipynb` (3.1), `02_analysis_q1.ipynb`, `03_ml_question.ipynb` | `src/stats.py`, dựng repo, môi trường, README, slide mở đầu + Q1, Q2, review PR |
+| Đức Thịnh (23120361) | Q3, Q4 | `01` (3.2.1, 3.2.2, 3.2.4), `02_analysis_q3.ipynb`, `02_analysis_q4.ipynb`, `04_summary.ipynb` | `src/cleaning.py`, `src/features.py`, slide Q3, Q4, Key findings |
+| Tùng Hiếu (24120311) | Q5, Q6 | `01` (3.2.3, 3.2.5, 3.2.6), `02_analysis_q5.ipynb`, `02_analysis_q6.ipynb` | `src/labels.py`, `src/merge_external.py`, FAOSTAT, template slide, `slides.pdf`, kiểm tra tái lập |
 
 ## Dataset
 - **Tên:** Coffee Quality with Locations of Origin
@@ -75,6 +75,12 @@ Trang Kaggle của dataset có 7 notebook công khai. Phân tích chi tiết t�
 ## Key findings
 *(Cập nhật sau)*
 
+## Tài liệu nộp kèm
+- `slides.pdf`: slide thuyết trình
+- `LLM_USAGE.md`: nhật ký sử dụng công cụ LLM của từng thành viên
+- `docs/questions.md`: 6 câu hỏi, tiêu chí D1–D6, biên bản và quyết định chung của nhóm
+- `docs/related_work.md`: các notebook công khai trên Kaggle và điểm khác biệt của nhóm
+
 ## How to run
 ### 1. Yêu cầu
 - Miniconda hoặc Anaconda, Git.
@@ -92,7 +98,7 @@ conda env create -f environment.yml
 conda activate coffee
 python -m ipykernel install --user --name coffee --display-name "Python (coffee)"
 ```
-Kiểm tra phiên bản. Kết quả phải là numpy 1.26, pandas 2.1, scipy 1.17, scikit-learn 1.9:
+Kiểm tra phiên bản. Kết quả phải là numpy 1.26.4, pandas 2.1, scipy 1.17, scikit-learn 1.9:
 ```bash
 python -c "import numpy, pandas, scipy, sklearn; print(numpy.__version__, pandas.__version__, scipy.__version__, sklearn.__version__)"
 ```
@@ -112,10 +118,20 @@ Theo yêu cầu của đề, file dữ liệu không đưa vào repo; mỗi ngư
 ```bash
 jupyter lab
 ```
-Chọn kernel **Python (coffee)** và chạy theo thứ tự:
-1. `notebooks/01_collection_exploration.ipynb`
-2. `notebooks/02_analysis_q1.ipynb` → `02_analysis_q6.ipynb`
-3. `notebooks/03_ml_question.ipynb`
+Chọn kernel **Python (coffee)** và chạy **Restart & Run All** theo thứ tự:
+
+| # | Notebook | Cần dữ liệu |
+|---|---|---|
+| 1 | `notebooks/01_collection_exploration.ipynb` | `data/raw/` (3 file) |
+| 2 | `notebooks/02_analysis_q1.ipynb` | `data/raw/` |
+| 3 | `notebooks/02_analysis_q3.ipynb` | `data/raw/` |
+| 4 | `notebooks/02_analysis_q4.ipynb` | `data/raw/` |
+| 5 | `notebooks/02_analysis_q5.ipynb` | `data/raw/` **và** `data/external/FAOSTAT_coffee.csv` (bước 4) |
+| 6 | `notebooks/02_analysis_q6.ipynb` | `data/raw/` |
+| 7 | `notebooks/03_ml_question.ipynb` (Q2, ML) | `data/raw/` |
+| 8 | `notebooks/04_summary.ipynb` | — |
+
+Mỗi notebook có các ô kiểm tra (ô `# TEST` hoặc `assert`); chạy xong không ô nào báo lỗi là đúng.
 
 ### 6. Khi environment.yml thay đổi
 Nếu có người thêm thư viện mới vào `environment.yml`, sau khi `git pull` cả nhóm chạy:
