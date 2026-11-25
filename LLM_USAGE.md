@@ -101,3 +101,31 @@
 - **Công cụ:** Claude (review đối chiếu đề, Notion, lab), Claude Code (thực hiện)
 - **Hỏi gì:** Rà notebook 01 theo đề và checklist Notion; sửa lỗi số liệu, bỏ nội dung lặp, bổ sung đường xu hướng scatter, thống nhất hình thức.
 - **Đã dùng / sửa thế nào:** Claude Code sửa lỗi sự thật, bỏ nội dung lặp, thêm đường xu hướng scatter và sửa các con số trong nhận xét cho khớp output; câu chữ nhận xét của thành viên giữ nguyên. Đổi imputer cột phân loại ở 03_ml_question.ipynb sang "unknown" cho khớp kế hoạch EDA. Ngọc Hoàng duyệt bảng thay đổi trước khi push.
+
+## 24/11/2026 — Q1 — Viết nhận xét kết quả
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude
+- **Hỏi gì:** Góp ý bản nháp các ô nhận xét của `02_analysis_q1.ipynb`: so sánh thô và có kiểm soát châu lục, CI bootstrap và Cohen's d, trả lời Q1, ý nghĩa thực tế, điều bất ngờ, hạn chế.
+- **Đã dùng / sửa thế nào:** Tự viết nhận xét từ bảng và biểu đồ đã lưu; dùng góp ý về cách diễn đạt (tách "không đủ bằng chứng" khỏi "không khác", không đọc ước lượng sau kiểm soát là "natural vẫn cao hơn"). Mọi con số được đối chiếu lại với output notebook.
+
+## 24/11/2026 — Q2 — Viết nhận xét mô hình ML
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude
+- **Hỏi gì:** Góp ý bản nháp các ô nhận xét của `03_ml_question.ipynb`: bảng rò rỉ theo mốc T, lý do chọn metric, kết quả tinh chỉnh trên CV, kết quả test so với baseline, phân tích lỗi và permutation importance.
+- **Đã dùng / sửa thế nào:** Tự viết nhận xét từ output; dùng góp ý để tách kết luận với giả thuyết chưa kiểm chứng và nêu rõ khi CI chứa 0. Lựa chọn mô hình vẫn chỉ dựa trên CV, không đổi theo kết quả test.
+
+## 24/11/2026 — Rà soát nhận xét Q1, Q2
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude
+- **Hỏi gì:** Rà toàn bộ nhận xét Q1, Q2: kiểm tra các con số so với output và tìm chỗ lập luận chưa nhất quán.
+- **Đã dùng / sửa thế nào:** Nhận được danh sách lỗi nội dung (REC_ID cần xếp vào rò rỉ target, lý giải sai vì sao CI sau kiểm soát rộng hơn ở Q1) và các chỉnh câu chữ nhỏ. Tự xem lại từng điểm trước khi sửa; ý "sơ chế khô tiết kiệm nước" bị bỏ vì chưa có nguồn trích dẫn.
+
+## 25/11/2026 — Thiết kế lại phần đầu notebook
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude Code
+- **Hỏi gì:** Thiết kế lại phần đầu của `01_collection_exploration.ipynb`, `02_analysis_q1.ipynb` và `03_ml_question.ipynb` theo một khuôn chung: thông tin trường/môn và bảng phân công (notebook 01); người phụ trách, loại câu hỏi, tiêu chí, cột dữ liệu sử dụng và câu hỏi nghiên cứu (Q1, Q2).
+- **Đã dùng / sửa thế nào:** Dùng khung HTML/CSS do Claude Code đề xuất; tự điền và kiểm tra nội dung câu hỏi, tiêu chí, cột dữ liệu theo `docs/questions.md`; chạy lại Restart & Run All để kiểm tra notebook hiển thị đúng trước khi push.
