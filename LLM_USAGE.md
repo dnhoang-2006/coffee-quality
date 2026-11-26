@@ -1,81 +1,107 @@
 # LLM_USAGE — Hỗ trợ kỹ thuật và xử lý dữ liệu
 
-Phần ghi nhận này tập trung vào các yêu cầu về kỹ thuật, code, thống kê và kiểm tra dữ liệu. Mục Hỏi gì tóm tắt yêu cầu cùng các chi tiết kỹ thuật đã trao đổi trong quá trình thực hiện.
+## Tuần 1 — Khảo sát categorical columns và chuẩn hóa nhãn
+
+- **Người dùng:** Tùng Hiếu.
+- **Công cụ:** Codex
+- **Hỏi gì:** Hãy thống kê số nhãn, số lô và tỷ lệ của các cột phân loại, phân biệt tỷ lệ trên toàn mẫu với tỷ lệ trên các lô có nhãn. Chuẩn hóa chữ hoa/thường, khoảng trắng và alias; gộp nhóm dưới 20 lô và so sánh ngưỡng 10–30 lô cho tôi. Giữ riêng giá trị thiếu, nhãn `None` và tên quốc gia chưa gộp để nối FAOSTAT.
+- **Đã dùng / sửa thế nào:** Triển khai các bảng tần suất và tỷ lệ, dùng `normalize_labels` và `group_rare` để chuẩn hóa, gộp nhóm hiếm và so sánh theo ngưỡng. Giữ dữ liệu gốc, phân biệt giá trị thiếu với nhãn có sẵn và dùng tên quốc gia chưa gộp khi nối dữ liệu ngoài.
 
 ## 05/11/2026 — Relationships
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Triển khai Pearson, Spearman, crosstab châu lục–phương pháp sơ chế và median điểm theo quốc gia như thế nào? Kiểm tra phạm vi mẫu, giá trị thiếu, lô trùng và mẫu số của từng bảng ra sao?
+- **Hỏi gì:** Hãy tính Pearson và Spearman giữa các biến cảm quan, biến vật lý và `total_9`, rồi trực quan hóa bằng heatmap cho tôi. Lập thêm crosstab châu lục–phương pháp sơ chế và bảng median điểm theo quốc gia. Ghi rõ số lô hợp lệ, cách xử lý giá trị thiếu và mẫu số khi tính tỷ lệ.
 - **Đã dùng / sửa thế nào:** Xây dựng các cell thống kê mối quan hệ, kiểm tra số lô và chạy tuần tự các cell để đối chiếu kết quả.
 
 ## 09/11/2026 — Q5 — Ánh xạ quốc gia và kiểm tra phép nối
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Hoàn thiện `COUNTRY_MAP` và `load_fao()` với ba cột country_fao, year, production_t như thế nào? Kiểm tra khóa quốc gia–năm, left join many-to-one và audit để giữ nguyên số lô, phân biệt khóa không khớp với sản lượng thiếu ra sao?
+- **Hỏi gì:** Hãy hoàn thiện `COUNTRY_MAP` từ danh sách quốc gia CQI và cho `load_fao()` trả về ba cột `country_fao`, `year`, `production_t`, với sản lượng tính bằng tấn. Kiểm tra khóa quốc gia–năm duy nhất trước khi left join many-to-one. Lập bảng audit số dòng trước–sau nối, tách khóa không khớp với khóa khớp nhưng thiếu sản lượng cho tôi.
 - **Đã dùng / sửa thế nào:** Xây dựng hàm nạp dữ liệu và `merge_production()`, kiểm tra khóa duy nhất, phép nối many-to-one, số dòng trước và sau nối cùng các khóa không khớp.
 
 ## 09/11/2026 — Q5 — Phạm vi China và tổng sản lượng thế giới
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Đối chiếu 16 lô China với nguồn CQI để xác nhận China, mainland và giữ Taiwan riêng như thế nào? Kiểm tra bộ lọc, đơn vị, dữ liệu World 2010–2017 và ghép CSV ra sao để tránh tính trùng các vùng thành phần?
+- **Hỏi gì:** Hãy đối chiếu địa danh của 16 lô `China` trong bản CQI nguồn để xác nhận ánh xạ `China, mainland`, giữ `Taiwan` thành một chuỗi riêng. Kiểm tra dữ liệu `World` 2010–2017 có đúng một tổng sản lượng dương cho mỗi năm và cùng đơn vị tấn. Dùng tổng thế giới trực tiếp, tránh cộng trùng vùng tổng hợp với quốc gia thành phần.
 - **Đã dùng / sửa thế nào:** Đối chiếu 16 lô với bản CQI nguồn. Kiểm tra tám dòng World, ghép với 912 dòng ban đầu và dùng tổng thế giới cùng năm để tính tỷ trọng.
 
 ## 09/11/2026 — Q5 — Tổng hợp dữ liệu theo quốc gia
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Tổng hợp số lô, median `total_9` và tỷ trọng sản lượng trung bình theo quốc gia như thế nào? Tính tỷ trọng từng năm với trọng số năm bằng nhau, đồng thời kiểm tra điều kiện dữ liệu hợp lệ và ngưỡng tối thiểu 10 lô ra sao?
+- **Hỏi gì:** Hãy chọn các lô Arabica hợp lệ trong 2010–2017, tổng hợp số lô và median `total_9` theo quốc gia cho tôi. Tính tỷ trọng bằng sản lượng quốc gia chia tổng `World` cùng năm, rồi lấy trung bình với trọng số năm bằng nhau để không phụ thuộc số lô CQI. Chỉ giữ quốc gia có ít nhất 10 lô hợp lệ và hiển thị bảng mẫu cuối.
 - **Đã dùng / sửa thế nào:** Tính tỷ trọng ở cấp quốc gia–năm để mỗi năm có cùng trọng số. Lọc theo ngưỡng 10 lô và kiểm tra mẫu cuối có 18 quốc gia/vùng.
 
 ## 09/11/2026 — Q5 — Phân nhóm quy mô và bootstrap CI 95%
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Chia nhóm theo median tỷ trọng và tính bootstrap CI 95% cho chênh lệch median nhỏ − lớn cùng Spearman như thế nào? Lấy mẫu lại ở cấp quốc gia, độc lập theo nhóm hoặc giữ cặp tỷ trọng–điểm, với 5.000 lượt, seed cố định và kiểm tra lượt Spearman không xác định ra sao?
+- **Hỏi gì:** Hãy chia nhóm Nhỏ và Lớn theo median tỷ trọng sản lượng, rồi tính chênh lệch median điểm cấp quốc gia Nhỏ − Lớn và Spearman giữa tỷ trọng với median điểm. Dùng 5.000 lượt bootstrap có hoàn lại ở cấp quốc gia, seed 42; lấy mẫu riêng từng nhóm và giữ cặp tỷ trọng–điểm khi tính Spearman. Xuất ước lượng cùng CI 95% theo phân vị 2,5% và 97,5%.
 - **Đã dùng / sửa thế nào:** Tái sử dụng `bootstrap_diff` và `bootstrap_ci` trong `src/stats.py`, lấy mẫu lại ở cấp quốc gia với 5.000 lượt và seed cố định. Đối chiếu CI bằng phép tính riêng.
 
 ## 09–10/11/2026 — Kiểm tra cặp lô trùng
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Xác nhận cặp 721–742 trùng nhau ngoài REC_ID và tính lại số lô, median, ngưỡng 10 lô cùng hai CI sau khi bỏ 742 như thế nào? Giữ nguyên tỷ trọng FAOSTAT và ngưỡng chia nhóm để so sánh với mẫu chính ra sao?
+- **Hỏi gì:** Hãy đối chiếu toàn bộ cột ngoài `REC_ID` để xác nhận cặp 721–742 trùng nhau. Bỏ lô 742, tính lại số lô, median theo quốc gia và kiểm tra điều kiện tối thiểu 10 lô. Giữ nguyên tỷ trọng FAOSTAT và ngưỡng chia nhóm, rồi so sánh hai ước lượng cùng CI của Q5 với mẫu chính cho tôi.
 - **Đã dùng / sửa thế nào:** Tính lại số lô và các thống kê sau khi bỏ 742, đối chiếu với mẫu chính để kiểm tra mức thay đổi.
 
 ## 10/11/2026 — Q6 — Chọn mẫu, melt và pivot_table
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Chọn Arabica ở bốn châu lục, giữ tất cả năm và loại các bản ghi ngoài phạm vi như thế nào? Melt chín thuộc tính với REC_ID, Continent.of.Origin, kiểm tra shape và tạo pivot_table median Châu lục × Thuộc tính ra sao?
+- **Hỏi gì:** Hãy chọn Arabica ở North America, South America, Asia và Africa, bỏ lô 1310 nhưng giữ tất cả năm, kể cả lô thiếu năm. Melt chín thuộc tính thành bốn cột `REC_ID`, `Continent.of.Origin`, `attribute`, `score` cho tôi. Hiển thị shape trước–sau, kiểm tra mỗi lô tạo chín dòng và lập pivot_table median cùng bảng số lô có điểm hợp lệ.
 - **Đã dùng / sửa thế nào:** Chốt mẫu dùng tất cả năm, bảng dài bốn cột và pivot median. Kiểm tra 1.308 lô tạo 11.772 dòng sau melt, đối chiếu median bằng groupby.
 
 ## 10/11/2026 — Q6 — Z-score và xếp hạng thuộc tính
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Chuẩn hóa từng thuộc tính bằng broadcasting với mean và độ lệch chuẩn chung, ddof=1 như thế nào? Từ mean z-score theo châu lục, tính spread max − min và xếp hạng ra sao để xử lý đồng hạng, tránh sai lệch do làm tròn?
+- **Hỏi gì:** Hãy tính z-score từng thuộc tính bằng mean và độ lệch chuẩn mẫu chung của bốn châu lục, dùng `ddof=1`, không chuẩn hóa riêng trong từng châu lục. Tạo bảng mean z-score Châu lục × Thuộc tính, tính spread bằng max − min của bốn mean và xếp hạng giảm dần. Giữ độ chính xác khi tính, chỉ làm tròn lúc hiển thị và xử lý đồng hạng cho tôi.
 - **Đã dùng / sửa thế nào:** Chuẩn hóa từng thuộc tính trên mẫu chung với ddof=1. Tính mean z-score theo châu lục và spread, đối chiếu z-score với SciPy.
 
 ## 10/11/2026 — Q6 — Kiểm tra độ bền
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Kiểm tra tỷ lệ sát trần và thay đổi spread, thứ hạng khi bỏ Uniformity, Clean.Cup, Sweetness như thế nào? Khi bỏ lô 742, tính lại tham số z-score và so sánh với mẫu chính ra sao?
+- **Hỏi gì:** Hãy thống kê tỷ lệ đạt 10 điểm ở `Uniformity`, `Clean.Cup`, `Sweetness`, rồi so sánh spread và thứ hạng khi bỏ ba thuộc tính này. Kiểm tra riêng trường hợp bỏ lô trùng 742 bằng cách tính lại mean, độ lệch chuẩn và hồ sơ z-score. Xuất bảng thay đổi spread, thứ hạng so với mẫu chính cho tôi.
 - **Đã dùng / sửa thế nào:** So sánh spread và hạng với chín hoặc sáu thuộc tính. Tính lại tham số chuẩn hóa sau khi bỏ 742 và lập bảng thay đổi.
 
 ## 10/11/2026 — Trực quan hóa dữ liệu
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Vẽ scatter plot sản lượng trên thang log10 với median điểm, số lô và nhóm quy mô như thế nào? Biểu diễn CI 95% của chênh lệch điểm, heatmap và line profile mean z-score ra sao để có trục, thang màu và chú giải phù hợp?
+- **Hỏi gì:** Hãy vẽ scatter plot với trục x là log10 sản lượng trung bình, trục y là median `total_9`, màu phân biệt nhóm quy mô và kích thước điểm thể hiện số lô CQI. Vẽ thêm ước lượng chênh lệch median cùng CI 95% và đường tham chiếu 0. Với Q6, tạo heatmap và line profile từ cùng bảng mean z-score, thống nhất thứ tự thuộc tính và màu châu lục.
 - **Đã dùng / sửa thế nào:** Dùng Matplotlib và Seaborn, kiểm tra dữ liệu trục, đơn vị, màu và chú giải. Lưu output sau khi chạy notebook.
 
 ## 15/11/2026 — Đồng bộ code và kiểm tra môi trường
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Cập nhật import `add_total_score` từ `src.features` sau khi đồng bộ main như thế nào? Kiểm tra kernel coffee và chạy lại hai notebook từ đầu ra sao để xác nhận đủ output, biểu đồ và phát hiện lỗi phụ thuộc phiên chạy?
+- **Hỏi gì:** Hãy kiểm tra đường dẫn import sau khi đồng bộ main và chuyển `add_total_score` sang `src.features` đúng cấu trúc hiện tại. Xác nhận metadata kernel `coffee`, restart rồi chạy Q5–Q6 từ đầu để phát hiện biến chưa khởi tạo hoặc lỗi phụ thuộc thứ tự cell. Kiểm tra các bảng, biểu đồ và output lỗi sau lượt chạy cho tôi.
 - **Đã dùng / sửa thế nào:** Cập nhật import add_total_score từ `src.features`, kiểm tra metadata kernel và chạy lại từ đầu để phát hiện lỗi tương thích.
+
+## Tuần 2–3 — Q6 — Đối chiếu mean và median z-score
+
+- **Người dùng:** Tùng Hiếu.
+- **Công cụ:** Codex
+- **Hỏi gì:** Hãy giữ nguyên mẫu và tham số z-score, thay mean bằng median khi tổng hợp theo châu lục, rồi tính lại spread và thứ hạng. Lập bảng so sánh hai cách, chỉ rõ thuộc tính đổi hạng và các trường hợp đồng hạng cho tôi. Kiểm tra median điểm gốc của ba thuộc tính sát trần để xác định vì sao spread median bằng 0, khác với phép chỉ bỏ ba cột.
+- **Đã dùng / sửa thế nào:** Bổ sung bảng đối chiếu spread, hạng và thay đổi hạng giữa mean và median z-score. Dùng cùng mẫu và cùng tham số chuẩn hóa để so sánh; kiểm tra median điểm gốc của ba thuộc tính sát trần và xác định phép bỏ cột không làm thay đổi spread của sáu thuộc tính còn lại.
+
+## 25/11/2026 — Q5 — Trực quan hóa Spearman và CI 95%
+
+- **Người dùng:** Tùng Hiếu.
+- **Công cụ:** Codex
+- **Hỏi gì:** Hãy lấy hệ số Spearman và hai cận bootstrap CI 95% trực tiếp từ bảng `effects`, không nhập tay số liệu. Vẽ điểm ước lượng cùng khoảng ngang, đặt trục từ −1 đến 1 và đường tham chiếu 0, hiển thị giá trị ở điểm và hai đầu khoảng. Giữ biểu đồ này riêng với chênh lệch median vì hai đại lượng khác đơn vị.
+- **Đã dùng / sửa thế nào:** Thêm biểu đồ lấy trực tiếp từ `effects`, dùng trục hệ số từ −1 đến 1 và đường tham chiếu 0. Chạy lại toàn bộ notebook trên kernel coffee và dùng output mới cho slide.
+
+## 26/11/2026 — Q5–Q6 — Kiểm tra nguồn dữ liệu và căn cứ phương pháp
+
+- **Người dùng:** Tùng Hiếu.
+- **Công cụ:** Codex
+- **Hỏi gì:** Hãy kiểm tra nguồn dataset CQI, bộ lọc và đơn vị FAOSTAT, cùng file gốc dùng đối chiếu địa danh `China` trong Q5–Q6. Đối chiếu Spearman, bootstrap percentile và `ddof=1` với tài liệu chính thức có nội dung hỗ trợ trực tiếp. Phân biệt nguồn dữ liệu, tài liệu phương pháp và các hàm nhóm tự triển khai; giữ nguyên code và số liệu phân tích cho tôi.
+- **Đã dùng / sửa thế nào:** Bổ sung liên kết dataset Kaggle, README FAOSTAT và file `arabica_data_cleaned.csv` dùng đối chiếu địa danh. Thêm tài liệu SciPy về Spearman, bootstrap percentile và pandas về độ lệch chuẩn mẫu. Ghi rõ CI dùng các hàm trong `src/stats.py`; chỉ cập nhật Markdown của Q5–Q6, kiểm tra cấu trúc notebook hợp lệ và giữ nguyên code cùng output đã lưu.
 
