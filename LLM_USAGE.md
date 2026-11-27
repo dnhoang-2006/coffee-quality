@@ -1,11 +1,4 @@
-# LLM_USAGE — Hỗ trợ kỹ thuật và xử lý dữ liệu
-
-## Tuần 1 — Khảo sát categorical columns và chuẩn hóa nhãn
-
-- **Người dùng:** Tùng Hiếu.
-- **Công cụ:** Codex
-- **Hỏi gì:** Hãy thống kê số nhãn, số lô và tỷ lệ của các cột phân loại, phân biệt tỷ lệ trên toàn mẫu với tỷ lệ trên các lô có nhãn. Chuẩn hóa chữ hoa/thường, khoảng trắng và alias; gộp nhóm dưới 20 lô và so sánh ngưỡng 10–30 lô cho tôi. Giữ riêng giá trị thiếu, nhãn `None` và tên quốc gia chưa gộp để nối FAOSTAT.
-- **Đã dùng / sửa thế nào:** Triển khai các bảng tần suất và tỷ lệ, dùng `normalize_labels` và `group_rare` để chuẩn hóa, gộp nhóm hiếm và so sánh theo ngưỡng. Giữ dữ liệu gốc, phân biệt giá trị thiếu với nhãn có sẵn và dùng tên quốc gia chưa gộp khi nối dữ liệu ngoài.
+# LLM_USAGE
 
 ## 01–08/11/2026 — Notebook 01, mục 3.1 Data collection
 
@@ -14,12 +7,25 @@
 - **Hỏi gì:** Dựng khung notebook 3.1 theo cấu trúc homework/lab; code đọc dữ liệu, MD5, bảng nhóm cột, bảng quần thể/giai đoạn/độ phủ; góp ý nội dung Subject, License, Collection method; kiểm tra tài liệu tham khảo.
 - **Đã dùng / sửa thế nào:** Dùng khung và code gợi ý, tự chạy lại và đối chiếu số liệu với dữ liệu; tự chọn và viết lại các kết luận; sửa số lô 1.338 → 1.339 sau khi kiểm tra REC_ID.
 
-## 05/11/2026 — Relationships
+## 02–07/11/2026 — Khảo sát categorical columns và chuẩn hóa nhãn
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
-- **Hỏi gì:** Hãy tính Pearson và Spearman giữa các biến cảm quan, biến vật lý và `total_9`, rồi trực quan hóa bằng heatmap cho tôi. Lập thêm crosstab châu lục–phương pháp sơ chế và bảng median điểm theo quốc gia. Ghi rõ số lô hợp lệ, cách xử lý giá trị thiếu và mẫu số khi tính tỷ lệ.
-- **Đã dùng / sửa thế nào:** Xây dựng các cell thống kê mối quan hệ, kiểm tra số lô và chạy tuần tự các cell để đối chiếu kết quả.
+- **Hỏi gì:** Hãy thống kê số nhãn, số lô và tỷ lệ của các cột phân loại, phân biệt tỷ lệ trên toàn mẫu với tỷ lệ trên các lô có nhãn. Chuẩn hóa chữ hoa/thường, khoảng trắng và alias; gộp nhóm dưới 20 lô và so sánh ngưỡng 10–30 lô cho tôi. Giữ riêng giá trị thiếu, nhãn `None` và tên quốc gia chưa gộp để nối FAOSTAT.
+- **Đã dùng / sửa thế nào:** Triển khai các bảng tần suất và tỷ lệ, dùng `normalize_labels` và `group_rare` để chuẩn hóa, gộp nhóm hiếm và so sánh theo ngưỡng. Giữ dữ liệu gốc, phân biệt giá trị thiếu với nhãn có sẵn và dùng tên quốc gia chưa gộp khi nối dữ liệu ngoài.
+
+## 05/11/2026 — Relationships
+
+- Công cụ Codex hỗ trợ triển khai các cell Relationships theo câu trả lời của Thịnh, kiểm tra số đếm trên CSV và ghi báo cáo kiểm chứng.
+- Các kết quả được kiểm tra bằng lượt chạy tuần tự 41 cell. Thành viên cần tự chạy lại trên kernel `coffee` và tự viết nhận xét dựa trên output.
+
+## 06/11/2026 — Nhận xét EDA
+
+- Đã đối chiếu số đếm, mẫu số và hệ số với bảng, biểu đồ và dữ liệu nguồn. Thành viên rà lại và giải thích các nhận xét trước khi nộp.
+
+## 08/11/2026 — Summary EDA
+
+- Nội dung tách số liệu quan sát, cách xử lý dự kiến và hướng phân tích. Thành viên rà lại mẫu số, cách diễn giải và các quyết định tiền xử lý trước khi nộp.
 
 ## 09/11/2026 — Q5 — Ánh xạ quốc gia và kiểm tra phép nối
 
