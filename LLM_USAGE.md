@@ -134,5 +134,5 @@
 
 - **Người dùng:** Đức Thịnh
 - **Công cụ:** Claude Code
-- **Hỏi gì:** Viết nháp ô nhận xét sau forest plot của `02_analysis_q3.ipynb` (đọc dòng 5 bảng D6, ranh giới 12%), thêm ý (c) vào "Kiểm tra độ bền (D6)", sửa ý (3) ở "Lý giải điểm đáng chú ý" và ý (3) ở "Hạn chế" cho khớp kết quả (c).
-- **Đã dùng / sửa thế nào:** Claude Code viết nháp cả bốn đoạn trên; không sửa ô code nào. Các số (283 lô đúng 12%, 735 / 323 lô, +0,34 điểm, CI 95% [0,17; 0,66], median 75,00 / 74,66) lấy từ output bảng D6 và được kiểm tra lại bằng một phép tính riêng ngoài notebook. Ý (3) phần lý giải chỉ kết luận điều mà dòng 5 cho thấy (cách xếp lô 12% không giải thích được việc nhóm `<10%` cao hơn); hai nguyên nhân còn lại vẫn ghi là giả thuyết. Chạy lại Restart & Run All trên kernel `coffee`, mọi ô `# TEST` đều đạt.
+- **Hỏi gì:** Đề xuất ô nhận xét sau forest plot của `02_analysis_q3.ipynb` (đọc dòng 5 bảng D6, ranh giới 12%), gợi ý ranh giới 12% vào "Kiểm tra độ bền (D6)", sửa quy ước chia khoảng right=False ở "Lý giải điểm đáng chú ý" và ở "Hạn chế" cho khớp kết quả (c).
+- **Đã dùng / sửa thế nào:** Claude Code đề xuât các số (283 lô đúng 12%, 735 / 323 lô, +0,34 điểm, CI 95% [0,17; 0,66], median 75,00 / 74,66) lấy từ output bảng D6 và được kiểm tra lại bằng một phép tính riêng ngoài notebook. Ý (3) phần lý giải chỉ kết luận điều mà dòng 5 cho thấy (cách xếp lô 12% không giải thích được việc nhóm `<10%` cao hơn); hai nguyên nhân còn lại vẫn ghi là giả thuyết. Chạy lại Restart & Run All trên kernel `coffee`, mọi ô `# TEST` đều đạt.
