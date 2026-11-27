@@ -129,3 +129,10 @@
 - **Công cụ:** Claude Code
 - **Hỏi gì:** Thiết kế lại phần đầu của `01_collection_exploration.ipynb`, `02_analysis_q1.ipynb` và `03_ml_question.ipynb` theo một khuôn chung: thông tin trường/môn và bảng phân công (notebook 01); người phụ trách, loại câu hỏi, tiêu chí, cột dữ liệu sử dụng và câu hỏi nghiên cứu (Q1, Q2).
 - **Đã dùng / sửa thế nào:** Dùng khung HTML/CSS do Claude Code đề xuất; tự điền và kiểm tra nội dung câu hỏi, tiêu chí, cột dữ liệu theo `docs/questions.md`; chạy lại Restart & Run All để kiểm tra notebook hiển thị đúng trước khi push.
+
+## 27/11/2026 — Notebook 04, style hình và hình cho slide Q3, Q4
+
+- **Người dùng:** Đức Thịnh
+- **Công cụ:** Claude Code
+- **Hỏi gì:** Tạo `src/plot_style.py` theo cấu hình nhóm đã chốt; dựng `04_summary.ipynb` (Key findings, Limitations, Future work, khung Individual reflection); xuất hình forest plot D6 (Q3) và biểu đồ trước–sau kiểm soát (Q4) cho slide.
+- **Đã dùng / sửa thế nào:** Claude Code viết nháp toàn bộ chữ của Key findings, Limitations, Future work và chọn insight bất ngờ nhất (Q1); mọi con số được chép từ output đã lưu của các notebook 02, 03 trên `main` (Q2 lấy từ bảng test 24/11), và ô `# TEST` kiểm tra mỗi ước lượng nằm trong CI. Phần reflection chỉ có khung trống, không viết hộ ai. Hình slide được tính lại bằng cùng code và seed như notebook, có `assert` đối chiếu với bảng D6 và bảng độ dốc. Chạy Restart & Run All trên kernel `coffee`.
