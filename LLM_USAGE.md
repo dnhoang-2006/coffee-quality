@@ -1,4 +1,4 @@
-# LLM_USAGE — Hỗ trợ kỹ thuật và xử lý dữ liệu
+# LLM_USAGE
 
 ## Tuần 1 — Khảo sát categorical columns và chuẩn hóa nhãn
 
@@ -19,7 +19,21 @@
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
 - **Hỏi gì:** Hãy tính Pearson và Spearman giữa các biến cảm quan, biến vật lý và `total_9`, rồi trực quan hóa bằng heatmap cho tôi. Lập thêm crosstab châu lục–phương pháp sơ chế và bảng median điểm theo quốc gia. Ghi rõ số lô hợp lệ, cách xử lý giá trị thiếu và mẫu số khi tính tỷ lệ.
-- **Đã dùng / sửa thế nào:** Xây dựng các cell thống kê mối quan hệ, kiểm tra số lô và chạy tuần tự các cell để đối chiếu kết quả.
+- **Đã dùng / sửa thế nào:** Xây dựng các cell thống kê mối quan hệ, kiểm tra số lô và chạy tuần tự các cell để đối chiếu kết quả. Bản ghi trên main ghi nhận lượt kiểm tra tuần tự 41 cell; thành viên cần tự chạy lại trên kernel `coffee` và tự viết nhận xét dựa trên output.
+
+## 06/11/2026 — Nhận xét EDA
+
+- **Người dùng:** Tùng Hiếu.
+- **Công cụ:** Codex
+- **Hỏi gì:** Hỗ trợ đọc output và viết nháp nhận xét cho Categorical columns và Relationships; đối chiếu số đếm, mẫu số và hệ số với bảng, biểu đồ và dữ liệu nguồn.
+- **Đã dùng / sửa thế nào:** Codex hỗ trợ đọc output notebook đã lưu và viết nháp nhận xét. Đã đối chiếu số liệu với bảng, biểu đồ và dữ liệu nguồn; thành viên rà lại và giải thích các nhận xét trước khi nộp.
+
+## 08/11/2026 — Summary EDA
+
+- **Người dùng:** Tùng Hiếu.
+- **Công cụ:** Codex
+- **Hỏi gì:** Hỗ trợ soạn bản nháp Summary từ bảng và biểu đồ đã lưu, phân biệt số liệu quan sát, cách xử lý dữ kiện và hướng phân tích.
+- **Đã dùng / sửa thế nào:** Codex hỗ trợ soạn bản nháp Summary. Thành viên rà lại mẫu số, cách diễn giải và các quyết định tiền xử lý trước khi nộp.
 
 ## 09/11/2026 — Q5 — Ánh xạ quốc gia và kiểm tra phép nối
 
