@@ -7,6 +7,13 @@
 - **Hỏi gì:** Hãy thống kê số nhãn, số lô và tỷ lệ của các cột phân loại, phân biệt tỷ lệ trên toàn mẫu với tỷ lệ trên các lô có nhãn. Chuẩn hóa chữ hoa/thường, khoảng trắng và alias; gộp nhóm dưới 20 lô và so sánh ngưỡng 10–30 lô cho tôi. Giữ riêng giá trị thiếu, nhãn `None` và tên quốc gia chưa gộp để nối FAOSTAT.
 - **Đã dùng / sửa thế nào:** Triển khai các bảng tần suất và tỷ lệ, dùng `normalize_labels` và `group_rare` để chuẩn hóa, gộp nhóm hiếm và so sánh theo ngưỡng. Giữ dữ liệu gốc, phân biệt giá trị thiếu với nhãn có sẵn và dùng tên quốc gia chưa gộp khi nối dữ liệu ngoài.
 
+## 01–08/11/2026 — Notebook 01, mục 3.1 Data collection
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude
+- **Hỏi gì:** Dựng khung notebook 3.1 theo cấu trúc homework/lab; code đọc dữ liệu, MD5, bảng nhóm cột, bảng quần thể/giai đoạn/độ phủ; góp ý nội dung Subject, License, Collection method; kiểm tra tài liệu tham khảo.
+- **Đã dùng / sửa thế nào:** Dùng khung và code gợi ý, tự chạy lại và đối chiếu số liệu với dữ liệu; tự chọn và viết lại các kết luận; sửa số lô 1.338 → 1.339 sau khi kiểm tra REC_ID.
+
 ## 05/11/2026 — Relationships
 
 - **Người dùng:** Tùng Hiếu.
@@ -77,12 +84,26 @@
 - **Hỏi gì:** Hãy vẽ scatter plot với trục x là log10 sản lượng trung bình, trục y là median `total_9`, màu phân biệt nhóm quy mô và kích thước điểm thể hiện số lô CQI. Vẽ thêm ước lượng chênh lệch median cùng CI 95% và đường tham chiếu 0. Với Q6, tạo heatmap và line profile từ cùng bảng mean z-score, thống nhất thứ tự thuộc tính và màu châu lục.
 - **Đã dùng / sửa thế nào:** Dùng Matplotlib và Seaborn, kiểm tra dữ liệu trục, đơn vị, màu và chú giải. Lưu output sau khi chạy notebook.
 
+## 14–15/11/2026 — Tuần 2: Cleaning/Features & Phân tích Q3, Q4
+
+- **Người dùng:** Đức Thịnh
+- **Công cụ:** Antigravity
+- **Hỏi gì:** Hỗ trợ tách `src/cleaning.py` và `src/features.py`, triển khai biến dẫn xuất D3 (`add_defect_total`, `bin_moisture`), định lượng bất định D5 (`bootstrap_diff`, `kruskal`), kiểm tra độ bền D6 (`Moisture = 0`, `1,5×IQR` vs `3×IQR`) cho Q3 (`notebooks/02_analysis_q3.ipynb`), và phân tích xu hướng 2012–2017 kèm kiểm soát cơ cấu quốc gia D4 và bootstrap CI độ dốc D5 cho Q4 (`notebooks/02_analysis_q4.ipynb`).
+- **Đã dùng / sửa thế nào:** Dùng cấu trúc code và bảng tổng hợp do AI đề xuất, bổ sung `%matplotlib inline` theo review để hiển thị đầy đủ biểu đồ trong notebook, tách riêng p-value Kruskal–Wallis khỏi bảng so sánh từng cặp ở Q3, tự đối chiếu lại toàn bộ số liệu đầu ra bằng cách chạy `Restart & Run All` trên kernel `coffee`, và tự rà soát phần diễn giải kết quả (bao gồm lý giải nhóm `<10%` và độ nhạy với `Moisture = 0`).
+
 ## 15/11/2026 — Đồng bộ code và kiểm tra môi trường
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
 - **Hỏi gì:** Hãy kiểm tra đường dẫn import sau khi đồng bộ main và chuyển `add_total_score` sang `src.features` đúng cấu trúc hiện tại. Xác nhận metadata kernel `coffee`, restart rồi chạy Q5–Q6 từ đầu để phát hiện biến chưa khởi tạo hoặc lỗi phụ thuộc thứ tự cell. Kiểm tra các bảng, biểu đồ và output lỗi sau lượt chạy cho tôi.
 - **Đã dùng / sửa thế nào:** Cập nhật import add_total_score từ `src.features`, kiểm tra metadata kernel và chạy lại từ đầu để phát hiện lỗi tương thích.
+
+## 22/11/2026 — Sửa notebook 01 theo review
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude (review đối chiếu đề, Notion, lab), Claude Code (thực hiện)
+- **Hỏi gì:** Rà notebook 01 theo đề và checklist Notion; sửa lỗi số liệu, bỏ nội dung lặp, bổ sung đường xu hướng scatter, thống nhất hình thức.
+- **Đã dùng / sửa thế nào:** Claude Code sửa lỗi sự thật, bỏ nội dung lặp, thêm đường xu hướng scatter và sửa các con số trong nhận xét cho khớp output; câu chữ nhận xét của thành viên giữ nguyên. Đổi imputer cột phân loại ở 03_ml_question.ipynb sang "unknown" cho khớp kế hoạch EDA. Ngọc Hoàng duyệt bảng thay đổi trước khi push.
 
 ## Tuần 2–3 — Q6 — Đối chiếu mean và median z-score
 
@@ -91,6 +112,27 @@
 - **Hỏi gì:** Hãy giữ nguyên mẫu và tham số z-score, thay mean bằng median khi tổng hợp theo châu lục, rồi tính lại spread và thứ hạng. Lập bảng so sánh hai cách, chỉ rõ thuộc tính đổi hạng và các trường hợp đồng hạng cho tôi. Kiểm tra median điểm gốc của ba thuộc tính sát trần để xác định vì sao spread median bằng 0, khác với phép chỉ bỏ ba cột.
 - **Đã dùng / sửa thế nào:** Bổ sung bảng đối chiếu spread, hạng và thay đổi hạng giữa mean và median z-score. Dùng cùng mẫu và cùng tham số chuẩn hóa để so sánh; kiểm tra median điểm gốc của ba thuộc tính sát trần và xác định phép bỏ cột không làm thay đổi spread của sáu thuộc tính còn lại.
 
+## 24/11/2026 — Q1 — Viết nhận xét kết quả
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude
+- **Hỏi gì:** Góp ý bản nháp các ô nhận xét của `02_analysis_q1.ipynb`: so sánh thô và có kiểm soát châu lục, CI bootstrap và Cohen's d, trả lời Q1, ý nghĩa thực tế, điều bất ngờ, hạn chế.
+- **Đã dùng / sửa thế nào:** Tự viết nhận xét từ bảng và biểu đồ đã lưu; dùng góp ý về cách diễn đạt (tách "không đủ bằng chứng" khỏi "không khác", không đọc ước lượng sau kiểm soát là "natural vẫn cao hơn"). Mọi con số được đối chiếu lại với output notebook.
+
+## 24/11/2026 — Q2 — Viết nhận xét mô hình ML
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude
+- **Hỏi gì:** Góp ý bản nháp các ô nhận xét của `03_ml_question.ipynb`: bảng rò rỉ theo mốc T, lý do chọn metric, kết quả tinh chỉnh trên CV, kết quả test so với baseline, phân tích lỗi và permutation importance.
+- **Đã dùng / sửa thế nào:** Tự viết nhận xét từ output; dùng góp ý để tách kết luận với giả thuyết chưa kiểm chứng và nêu rõ khi CI chứa 0. Lựa chọn mô hình vẫn chỉ dựa trên CV, không đổi theo kết quả test.
+
+## 24/11/2026 — Rà soát nhận xét Q1, Q2
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude
+- **Hỏi gì:** Rà toàn bộ nhận xét Q1, Q2: kiểm tra các con số so với output và tìm chỗ lập luận chưa nhất quán.
+- **Đã dùng / sửa thế nào:** Nhận được danh sách lỗi nội dung (REC_ID cần xếp vào rò rỉ target, lý giải sai vì sao CI sau kiểm soát rộng hơn ở Q1) và các chỉnh câu chữ nhỏ. Tự xem lại từng điểm trước khi sửa; ý "sơ chế khô tiết kiệm nước" bị bỏ vì chưa có nguồn trích dẫn.
+
 ## 25/11/2026 — Q5 — Trực quan hóa Spearman và CI 95%
 
 - **Người dùng:** Tùng Hiếu.
@@ -98,10 +140,16 @@
 - **Hỏi gì:** Hãy lấy hệ số Spearman và hai cận bootstrap CI 95% trực tiếp từ bảng `effects`, không nhập tay số liệu. Vẽ điểm ước lượng cùng khoảng ngang, đặt trục từ −1 đến 1 và đường tham chiếu 0, hiển thị giá trị ở điểm và hai đầu khoảng. Giữ biểu đồ này riêng với chênh lệch median vì hai đại lượng khác đơn vị.
 - **Đã dùng / sửa thế nào:** Thêm biểu đồ lấy trực tiếp từ `effects`, dùng trục hệ số từ −1 đến 1 và đường tham chiếu 0. Chạy lại toàn bộ notebook trên kernel coffee và dùng output mới cho slide.
 
+## 25/11/2026 — Thiết kế lại phần đầu notebook
+
+- **Người dùng:** Ngọc Hoàng
+- **Công cụ:** Claude Code
+- **Hỏi gì:** Thiết kế lại phần đầu của `01_collection_exploration.ipynb`, `02_analysis_q1.ipynb` và `03_ml_question.ipynb` theo một khuôn chung: thông tin trường/môn và bảng phân công (notebook 01); người phụ trách, loại câu hỏi, tiêu chí, cột dữ liệu sử dụng và câu hỏi nghiên cứu (Q1, Q2).
+- **Đã dùng / sửa thế nào:** Dùng khung HTML/CSS do Claude Code đề xuất; tự điền và kiểm tra nội dung câu hỏi, tiêu chí, cột dữ liệu theo `docs/questions.md`; chạy lại Restart & Run All để kiểm tra notebook hiển thị đúng trước khi push.
+
 ## 26/11/2026 — Q5–Q6 — Kiểm tra nguồn dữ liệu và căn cứ phương pháp
 
 - **Người dùng:** Tùng Hiếu.
 - **Công cụ:** Codex
 - **Hỏi gì:** Hãy kiểm tra nguồn dataset CQI, bộ lọc và đơn vị FAOSTAT, cùng file gốc dùng đối chiếu địa danh `China` trong Q5–Q6. Đối chiếu Spearman, bootstrap percentile và `ddof=1` với tài liệu chính thức có nội dung hỗ trợ trực tiếp. Phân biệt nguồn dữ liệu, tài liệu phương pháp và các hàm nhóm tự triển khai; giữ nguyên code và số liệu phân tích cho tôi.
 - **Đã dùng / sửa thế nào:** Bổ sung liên kết dataset Kaggle, README FAOSTAT và file `arabica_data_cleaned.csv` dùng đối chiếu địa danh. Thêm tài liệu SciPy về Spearman, bootstrap percentile và pandas về độ lệch chuẩn mẫu. Ghi rõ CI dùng các hàm trong `src/stats.py`; chỉ cập nhật Markdown của Q5–Q6, kiểm tra cấu trúc notebook hợp lệ và giữ nguyên code cùng output đã lưu.
-
